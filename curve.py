@@ -20,17 +20,14 @@ class EllipticCurve:
         x2, y2 = Q.x, Q.y
 
         if x1 == x2 and y1 == y2:
-            m_u = (3*x1*x1+self.a)%self.p
-            m_l = (2*y1)%self.p
-            m = (m_u*pow(m_l,self.p-2,self.p))%self.p
+            m = ((3*x1*x1+self.a)%self.p * pow((2*y1)%self.p, self.p-2, self.p))%self.p
         else:
-            m_u = (y2-y1)%self.p
-            m_l = (x2-x1)%self.p
-            m = (m_u*pow(m_l,self.p-2,self.p))%self.p
-        
+            m = ((y2-y1)%self.p * pow((x2-x1)%self.p, self.p-2,self.p))%self.p
+
         x3 = (m*m - x1 - x2)%self.p
         y3 = (m*(x1-x3) - y1)%self.p
         return Point(x3, y3)
+
 
     def double_and_add(self, n, P):
         temp_point = Point(P.x, P.y)

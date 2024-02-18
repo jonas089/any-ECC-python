@@ -16,6 +16,10 @@ class EllipticCurve:
         self.p = p
         
     def point_addition(self, P, Q):
+        if P.x == None and P.y == None:
+            return Q
+        if Q.x == None and Q.y == None:
+            return P
         x1, y1 = P.x, P.y
         x2, y2 = Q.x, Q.y
 
@@ -30,6 +34,8 @@ class EllipticCurve:
 
 
     def double_and_add(self, n, P):
+        if P.x == None and P.y == None:
+            return P
         temp_point = Point(P.x, P.y)
         binary = bin(n)[2:]
         for binary_char in binary[1:]:
